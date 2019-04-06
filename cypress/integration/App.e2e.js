@@ -26,6 +26,6 @@ describe('App E2E', () => {
 
     cy.contains('Decrement').click();
     cy.get('p')
-      .should('have.text', '11');      
+      .should('have.text', '1');      
   });  
 });
