@@ -48,9 +48,13 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn test
+      - run: yarn run test:unit -- --coverage
 
-      - run: yarn run test:cypress      
+      - run: yarn run test:snapshots -- --coverage
+
+      - run: yarn run test:cypress
+
+      - run: COVERALLS_REPO_TOKEN=$coveralls_repo_token yarn run coveralls
 
 workflows:
   version: 2
