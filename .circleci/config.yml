@@ -34,12 +34,12 @@ jobs:
     steps:
       - checkout
 
-      # # Download and cache dependencies
-      # - restore_cache:
-      #     keys:
-      #       - v1-dependencies-{{ checksum "package.json" }}
-      #       # fallback to using the latest cache if no exact match is found
-      #       - v1-dependencies-
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v2-dependencies-
 
       - run: yarn install --frozen-lockfile
 
@@ -48,7 +48,7 @@ jobs:
             # - node_modules
             - ~/.cache
             - /root/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v2-dependencies-{{ checksum "package.json" }}
 
       - run: yarn run test:snapshots -- --coverage
 
