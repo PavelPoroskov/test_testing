@@ -46,6 +46,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
+            - ~/.cache
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn run test:snapshots -- --coverage
