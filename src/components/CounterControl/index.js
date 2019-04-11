@@ -1,35 +1,34 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import Counter from '../Counter'
 
-export const doIncrement = (counter) => counter + 1
+export const doIncrement = counter => counter + 1
 
-export const doDecrement = (counter) => counter - 1
+export const doDecrement = counter => counter - 1
 
 // const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 // function getRandomIntInclusive(min, max) {
 //   min = Math.ceil(min);
 //   max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+//   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 // }
 
 // const localfetch = (arData) => {
 //   return wait(getRandomIntInclusive(100, 2000)).then(() => arData)
 // }
 
-export default
-function CounterControl(props) {
+export default function CounterControl(props) {
   const [counter, setCounter] = useState(0)
   const [list, setList] = useState([])
 
-  const increment = useCallback( () => {
+  const increment = useCallback(() => {
     setCounter(doIncrement)
-//     console.log(`CounterControl/increment`)
-// //    console.log(`CounterControl/increment counter=${counter}`)
-  }, [] )
+    //     console.log(`CounterControl/increment`)
+    // //    console.log(`CounterControl/increment counter=${counter}`)
+  }, [])
 
   const asyncFetch = async () => {
-    try{
+    try {
       // let items = await localfetch([ 'item1', 'item 2', 'item 3', 'item 4' ])
       let file = await fetch('/items.json')
       // console.log('file')
@@ -38,14 +37,12 @@ function CounterControl(props) {
       // console.log('items')
       // console.log(items)
       setList(items)
-    }catch (e){
-
-    }
+    } catch (e) {}
   }
 
-  useEffect( () => {
+  useEffect(() => {
     asyncFetch()
-  }, [] )
+  }, [])
 
   return (
     <div>
@@ -55,24 +52,32 @@ function CounterControl(props) {
       <button
         id='btn-dec'
         data-testid='btn-dec'
-        onClick={() => {setCounter(doDecrement)}}
+        onClick={() => {
+          setCounter(doDecrement)
+        }}
       >
         Decrement
       </button>
 
       <button
         id='btn-inc'
-        type="button"
+        type='button'
         data-testid='btn-inc'
         onClick={increment}
       >
         Increment
       </button>
 
-      {list && list.length && <div data-testid='list-fetched'>list-fetched</div>}
-      
+      {list && list.length && (
+        <div data-testid='list-fetched'>list-fetched</div>
+      )}
+
       <ul data-testid='list'>
-      {list.map( (item,ind) => <li key={ind} data-testid='list-item'>{item}</li> )}
+        {list.map((item, ind) => (
+          <li key={ind} data-testid='list-item'>
+            {item}
+          </li>
+        ))}
       </ul>
     </div>
   )
