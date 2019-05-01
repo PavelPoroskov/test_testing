@@ -51,17 +51,17 @@ it('fetch on DidMount: react-dom/test-utils, mock', async () => {
 
   //wait for update
   //https://github.com/facebook/react/pull/14853
-  act(() => {
+  await act( async () => {
     ReactDOM.render(<CounterControl />, container);
     // (async function() {
     //   let aaw = await wait(2500)
     // })()
+    await wait(500)
   });
   // const button = container.querySelector('button');
   // act(() => {
   //   button.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   // });
-  await wait(500)
 
   expect(global.fetch).toHaveBeenCalledTimes(1);
   expect(global.fetch).toHaveBeenCalledWith('/items.json');
